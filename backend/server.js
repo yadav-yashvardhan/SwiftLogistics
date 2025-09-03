@@ -8,7 +8,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS config yahan add karo
+app.use(cors({
+  origin: process.env.FRONTEND_URL,  // frontend ka Render URL from .env
+  credentials: true
+}));
+
+// ✅ JSON parse
 app.use(express.json());
 
 // Passport Middleware
