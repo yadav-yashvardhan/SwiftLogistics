@@ -243,217 +243,217 @@ const PricingPage = ({ pickupLocations, dropLocations, items, onBack }) => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
-           <div className="bg-gradient-to-r from-purple-900 to-blue-900 text-white p-6">
-               <div className="max-w-7xl mx-auto">
-                   <h1 className="text-3xl font-bold flex items-center"><Calculator className="mr-3 h-8 w-8" />Pricing & Checkout</h1>
-                   <p className="mt-2 text-purple-200">Transparent pricing with amazing offers!</p>
-               </div>
-           </div>
-           <div className="max-w-7xl mx-auto p-6">
-               <div className="grid lg:grid-cols-3 gap-8">
-                   <div className="lg:col-span-2 space-y-6">
-                       <div className="bg-white rounded-2xl shadow-xl p-6">
-                           <h2 className="text-2xl font-bold mb-6 flex items-center"><Package className="mr-2 h-6 w-6 text-purple-600" />Item-wise Pricing Breakdown</h2>
-                           <div className="space-y-4">
-                               {itemPricing.map((item, index) => (
-                                   <div key={item.id} className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4">
-                                       <div className="flex items-start justify-between">
-                                           <div className="flex-1">
-                                               <h4 className="font-semibold text-gray-800 flex items-center">
-                                                   {item.image && (
-                                                       <img src={item.image} alt={item.name} className="h-10 w-10 object-cover rounded mr-3" />
-                                                   )}
-                                                   {item.name || `Item ${index + 1}`}
-                                               </h4>
-                                               <div className="mt-2 text-sm text-gray-600 space-y-1">
-                                                   <p className="flex items-center">
-                                                       <MapPin className="h-4 w-4 mr-1 text-purple-600" /> Distance: {item.distance.toFixed(1)} km
-                                                   </p>
-                                                   {item.weight && (
-                                                       <p className="flex items-center">
-                                                           <Package className="h-4 w-4 mr-1 text-blue-600" /> Weight: {item.weight} kg
-                                                       </p>
-                                                   )}
-                                               </div>
-                                           </div>
-                                           <div className="text-right">
-                                               <div className="text-sm text-gray-600">
-                                                   <p>Base: ₹{item.basePrice}</p>
-                                                   {item.weightCharge > 0 && <p>Weight: +₹{item.weightCharge}</p>}
-                                               </div>
-                                               <p className="text-xl font-bold text-purple-600 mt-1">₹{item.itemPrice}</p>
-                                           </div>
-                                       </div>
-                                   </div>
-                               ))}
-                           </div>
-                       </div>
-                       <div className="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl shadow-xl p-6 text-white">
-                           <h3 className="text-xl font-bold mb-4 flex items-center"><Gift className="mr-2 h-6 w-6" />Limited Time Offers!</h3>
-                           <div className="grid md:grid-cols-2 gap-4">
-                               {availableCoupons.map((coupon, idx) => (
-                                   <div key={idx} className="bg-white/20 backdrop-blur rounded-lg p-3">
-                                       <div className="flex items-center justify-between">
-                                           <div>
-                                               <p className="font-bold">{coupon.code}</p>
-                                               <p className="text-sm opacity-90">{coupon.description}</p>
-                                           </div>
-                                           <button
-                                               onClick={() => { setCouponCode(coupon.code); applyCoupon(); }}
-                                               className="bg-white text-orange-500 px-3 py-1 rounded-full text-sm font-semibold hover:bg-orange-50 transition-colors"
-                                           >
-                                               Apply
-                                           </button>
-                                       </div>
-                                   </div>
-                               ))}
-                           </div>
-                       </div>
-                       <div className="bg-white rounded-2xl shadow-xl p-6">
-                           <h2 className="text-2xl font-bold mb-6 flex items-center"><Zap className="mr-2 h-6 w-6 text-yellow-500" />Choose Your Service Plan</h2>
-                           <div className="grid md:grid-cols-3 gap-4">
-                               {Object.entries(servicePlans).map(([key, plan]) => (
-                                   <div
-                                       key={key}
-                                       onClick={() => setSelectedPlan(key)}
-                                       className={`relative cursor-pointer rounded-xl p-6 transition-all transform hover:scale-105 ${
-                                           selectedPlan === key ? 'bg-gradient-to-br from-purple-600 to-blue-600 text-white shadow-2xl' : 'bg-gray-50 hover:bg-gray-100'
-                                       }`}
-                                   >
-                                       {key === 'express' && (
-                                           <div className="absolute -top-3 -right-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full">Popular</div>
-                                       )}
-                                       <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                                       <p className={`text-2xl font-bold mb-4 ${selectedPlan === key ? 'text-white' : 'text-purple-600'}`}>
-                                           {plan.multiplier}x
-                                       </p>
-                                       <ul className="space-y-2">
-                                           {plan.features.map((feature, idx) => (
-                                               <li key={idx} className="flex items-start text-sm">
-                                                   <Check className="h-4 w-4 mr-2 flex-shrink-0 mt-0.5" /> {feature}
-                                               </li>
-                                           ))}
-                                       </ul>
-                                   </div>
-                               ))}
-                           </div>
-                       </div>
-                   </div>
-                   <div className="lg:col-span-1 space-y-6">
-                       <div className="bg-white rounded-2xl shadow-xl p-6">
-                           <h2 className="text-2xl font-bold mb-4 flex items-center">
-                               <UserCheck className="mr-2 h-6 w-6 text-blue-600" /> Your Pickup Agent
-                           </h2>
-                           {isLoadingDriver ? (
-                               <div className="flex justify-center items-center h-24"><Loader className="h-8 w-8 animate-spin text-purple-500" /></div>
-                           ) : driverError ? (
-                               <div className="text-center text-red-500 bg-red-50 p-4 rounded-lg">{driverError}</div>
-                           ) : assignedDriver ? (
-                               <>
-                                   <div className="flex items-center space-x-4">
-                                       <img
-                                           src={assignedDriver.vehicleImage}
-                                           alt={assignedDriver.vehicleType}
-                                           className="h-20 w-20 rounded-full object-cover border-4 border-blue-200"
-                                       />
-                                       <div>
-                                           <p className="text-lg font-bold text-gray-800">{assignedDriver.name}</p>
-                                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                               <Shield className="h-3 w-3 mr-1" /> Verified Driver
-                                           </span>
-                                       </div>
-                                   </div>
-                                   <div className="mt-4 space-y-2 text-gray-700">
-                                       <div className="flex items-center">
-                                           <Truck className="h-5 w-5 mr-3 text-gray-500" />
-                                           <div>
-                                               <p className='font-semibold'>{assignedDriver.vehicleType}</p>
-                                               <p className='text-sm text-gray-500'>{assignedDriver.vehicleNumber}</p>
-                                           </div>
-                                       </div>
-                                       <div className="flex items-center">
-                                           <Phone className="h-5 w-5 mr-3 text-gray-500" />
-                                           <p className='font-semibold'>{assignedDriver.phone}</p>
-                                       </div>
-                                   </div>
-                               </>
-                           ) : null}
-                       </div>
-                       <div className="bg-white rounded-2xl shadow-xl p-6 sticky top-6">
-                           <h2 className="text-2xl font-bold mb-6 flex items-center"><TrendingUp className="mr-2 h-6 w-6 text-green-600" />Order Summary</h2>
-                           <div className="mb-6">
-                               <label className="block text-sm font-semibold text-gray-700 mb-2">Have a coupon code?</label>
-                               <div className="flex gap-2">
-                                   <input
-                                       type="text"
-                                       value={couponCode}
-                                       onChange={(e) => setCouponCode(e.target.value)}
-                                       placeholder="Enter code"
-                                       className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                   />
-                                   <button
-                                       onClick={applyCoupon}
-                                       className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-                                   >
-                                       Apply
-                                   </button>
-                               </div>
-                               {showCouponSuccess && (
-                                   <div className="mt-2 text-green-600 text-sm flex items-center animate-pulse">
-                                       <Check className="h-4 w-4 mr-1" /> Coupon applied successfully!
-                                   </div>
-                               )}
-                           </div>
-                           <div className="space-y-3 border-t pt-4">
-                               <div className="flex justify-between text-gray-600"><span>Subtotal ({items.length} items)</span><span>₹{subtotal.toFixed(2)}</span></div>
-                               {selectedPlan !== 'standard' && (
-                                   <div className="flex justify-between text-gray-600"><span>{servicePlans[selectedPlan].name} Plan</span><span>+₹{(planAdjustedTotal - subtotal).toFixed(2)}</span></div>
-                               )}
-                               {appliedCoupon && (
-                                   <div className="flex justify-between text-green-600 font-semibold"><span className="flex items-center"><Tag className="h-4 w-4 mr-1" />{appliedCoupon.code}</span><span>-₹{discount.toFixed(2)}</span></div>
-                               )}
-                               <div className="border-t pt-3 flex justify-between text-xl font-bold"><span>Total Amount</span><span className="text-purple-600">₹{finalTotal.toFixed(2)}</span></div>
-                           </div>
-                           <div className="mt-6 space-y-2">
-                               <div className="flex items-center text-sm text-gray-600"><Shield className="h-4 w-4 mr-2 text-green-600" />100% Secure Payment</div>
-                               <div className="flex items-center text-sm text-gray-600"><Clock className="h-4 w-4 mr-2 text-blue-600" />On-time Delivery Guarantee</div>
-                               <div className="flex items-center text-sm text-gray-600"><Star className="h-4 w-4 mr-2 text-yellow-500" />Rated 4.9/5 by 10,000+ customers</div>
-                           </div>
-                           <div className="mt-6 space-y-3">
-                               <button
-                                   onClick={handlePayment}
-                                   disabled={!assignedDriver || isLoadingDriver}
-                                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                               >
-                                   <Sparkles className="mr-2 h-5 w-5" />
-                                   Proceed to Payment
-                               </button>
-                               <button
-                                   onClick={onBack}
-                                   className="w-full border border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-                               >
-                                   Back to Edit
-                               </button>
-                           </div>
-                           <div className="mt-6 flex justify-center space-x-4">
-                               <div className="text-center"><Award className="h-8 w-8 text-purple-600 mx-auto" /><p className="text-xs text-gray-600 mt-1">Best Service</p></div>
-                               <div className="text-center"><Shield className="h-8 w-8 text-green-600 mx-auto" /><p className="text-xs text-gray-600 mt-1">Secure</p></div>
-                               <div className="text-center"><Truck className="h-8 w-8 text-blue-600 mx-auto" /><p className="text-xs text-gray-600 mt-1">Fast Delivery</p></div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-               <div className="mt-8 bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl p-6">
-                   <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center"><MapPin className="mr-2 h-6 w-6 text-purple-600" />Distance-based Pricing Structure</h3>
-                   <div className="grid md:grid-cols-3 gap-4">
-                       <div className="bg-white rounded-xl p-4 text-center transform hover:scale-105 transition-transform"><div className="text-3xl font-bold text-purple-600 mb-2">₹500</div><p className="text-gray-700 font-semibold">0-5 km</p><p className="text-sm text-gray-600 mt-1">Local deliveries</p></div>
-                       <div className="bg-white rounded-xl p-4 text-center transform hover:scale-105 transition-transform"><div className="text-3xl font-bold text-blue-600 mb-2">₹800</div><p className="text-gray-700 font-semibold">5-10 km</p><p className="text-sm text-gray-600 mt-1">City-wide delivery</p></div>
-                       <div className="bg-white rounded-xl p-4 text-center transform hover:scale-105 transition-transform"><div className="text-3xl font-bold text-green-600 mb-2">₹1000</div><p className="text-sm text-gray-600 mt-1">Long distance</p></div>
-                   </div>
-                   <p className="text-sm text-gray-600 mt-4 text-center">* Additional charges apply for weight over 5kg (₹10/kg)</p>
-               </div>
-           </div>
-       </div>
+            <div className="bg-gradient-to-r from-purple-900 to-blue-900 text-white py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto w-full">
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold flex items-center"><Calculator className="mr-2 h-6 w-6 sm:h-8 sm:w-8" />Pricing & Checkout</h1>
+                    <p className="mt-1 sm:mt-2 text-purple-200 text-sm sm:text-base">Transparent pricing with amazing offers!</p>
+                </div>
+            </div>
+            <div className="max-w-7xl mx-auto py-4 sm:py-6 px-4 sm:px-6 lg:px-8 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 flex items-center"><Package className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />Item-wise Pricing Breakdown</h2>
+                            <div className="space-y-3 sm:space-y-4">
+                                {itemPricing.map((item, index) => (
+                                    <div key={item.id} className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-3 sm:p-4">
+                                        <div className="flex flex-col sm:flex-row items-start justify-between gap-3">
+                                            <div className="flex-1">
+                                                <h4 className="font-semibold text-gray-800 flex items-center text-sm sm:text-base">
+                                                    {item.image && (
+                                                        <img src={item.image} alt={item.name} className="h-8 w-8 sm:h-10 sm:w-10 object-cover rounded mr-2 sm:mr-3" />
+                                                    )}
+                                                    {item.name || `Item ${index + 1}`}
+                                                </h4>
+                                                <div className="mt-1 sm:mt-2 text-xs sm:text-sm text-gray-600 space-y-1">
+                                                    <p className="flex items-center">
+                                                        <MapPin className="h-3 w-3 sm:h-4 sm:w-4 mr-1 text-purple-600" /> Distance: {item.distance.toFixed(1)} km
+                                                    </p>
+                                                    {item.weight && (
+                                                        <p className="flex items-center">
+                                                            <Package className="h-3 w-3 sm:h-4 sm:w-4 mr-1 text-blue-600" /> Weight: {item.weight} kg
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="text-xs sm:text-sm text-gray-600">
+                                                    <p>Base: ₹{item.basePrice}</p>
+                                                    {item.weightCharge > 0 && <p>Weight: +₹{item.weightCharge}</p>}
+                                                </div>
+                                                <p className="text-base sm:text-xl font-bold text-purple-600 mt-1">₹{item.itemPrice}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl shadow-xl p-4 sm:p-6 text-white">
+                            <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center"><Gift className="mr-2 h-5 w-5 sm:h-6 sm:w-6" />Limited Time Offers!</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                {availableCoupons.map((coupon, idx) => (
+                                    <div key={idx} className="bg-white/20 backdrop-blur rounded-lg p-3">
+                                        <div className="flex items-center justify-between">
+                                            <div>
+                                                <p className="font-bold text-sm sm:text-base">{coupon.code}</p>
+                                                <p className="text-xs sm:text-sm opacity-90">{coupon.description}</p>
+                                            </div>
+                                            <button
+                                                onClick={() => { setCouponCode(coupon.code); applyCoupon(); }}
+                                                className="bg-white text-orange-500 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold hover:bg-orange-50 transition-colors"
+                                            >
+                                                Apply
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 flex items-center"><Zap className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-yellow-500" />Choose Your Service Plan</h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                                {Object.entries(servicePlans).map(([key, plan]) => (
+                                    <div
+                                        key={key}
+                                        onClick={() => setSelectedPlan(key)}
+                                        className={`relative cursor-pointer rounded-xl p-4 sm:p-6 transition-all transform hover:scale-105 ${
+                                            selectedPlan === key ? 'bg-gradient-to-br from-purple-600 to-blue-600 text-white shadow-2xl' : 'bg-gray-50 hover:bg-gray-100'
+                                        }`}
+                                    >
+                                        {key === 'express' && (
+                                            <div className="absolute -top-2 sm:-top-3 -right-2 sm:-right-3 bg-red-500 text-white text-xs px-2 sm:px-3 py-1 rounded-full">Popular</div>
+                                        )}
+                                        <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2">{plan.name}</h3>
+                                        <p className={`text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 ${selectedPlan === key ? 'text-white' : 'text-purple-600'}`}>
+                                            {plan.multiplier}x
+                                        </p>
+                                        <ul className="space-y-1 sm:space-y-2">
+                                            {plan.features.map((feature, idx) => (
+                                                <li key={idx} className="flex items-start text-xs sm:text-sm">
+                                                    <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 flex-shrink-0 mt-0.5" /> {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1 space-y-4 sm:space-y-6">
+                        <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4 flex items-center">
+                                <UserCheck className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-blue-600" /> Your Pickup Agent
+                            </h2>
+                            {isLoadingDriver ? (
+                                <div className="flex justify-center items-center h-20 sm:h-24"><Loader className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-purple-500" /></div>
+                            ) : driverError ? (
+                                <div className="text-center text-red-500 bg-red-50 p-3 sm:p-4 rounded-lg text-xs sm:text-sm">{driverError}</div>
+                            ) : assignedDriver ? (
+                                <>
+                                    <div className="flex items-center space-x-3 sm:space-x-4">
+                                        <img
+                                            src={assignedDriver.vehicleImage}
+                                            alt={assignedDriver.vehicleType}
+                                            className="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover border-4 border-blue-200"
+                                        />
+                                        <div>
+                                            <p className="text-base sm:text-lg font-bold text-gray-800">{assignedDriver.name}</p>
+                                            <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                <Shield className="h-3 w-3 mr-1" /> Verified Driver
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="mt-3 sm:mt-4 space-y-2 text-gray-700">
+                                        <div className="flex items-center">
+                                            <Truck className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-gray-500" />
+                                            <div>
+                                                <p className="font-semibold text-sm sm:text-base">{assignedDriver.vehicleType}</p>
+                                                <p className="text-xs sm:text-sm text-gray-500">{assignedDriver.vehicleNumber}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Phone className="h-4 w-4 sm:h-5 sm:w-5 mr-2 sm:mr-3 text-gray-500" />
+                                            <p className="font-semibold text-sm sm:text-base">{assignedDriver.phone}</p>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : null}
+                        </div>
+                        <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 sticky top-4 sm:top-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 sm:mb-6 flex items-center"><TrendingUp className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-green-600" />Order Summary</h2>
+                            <div className="mb-4 sm:mb-6">
+                                <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Have a coupon code?</label>
+                                <div className="flex flex-col sm:flex-row gap-2">
+                                    <input
+                                        type="text"
+                                        value={couponCode}
+                                        onChange={(e) => setCouponCode(e.target.value)}
+                                        placeholder="Enter code"
+                                        className="flex-1 px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                                    />
+                                    <button
+                                        onClick={applyCoupon}
+                                        className="bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors text-sm"
+                                    >
+                                        Apply
+                                    </button>
+                                </div>
+                                {showCouponSuccess && (
+                                    <div className="mt-2 text-green-600 text-xs sm:text-sm flex items-center animate-pulse">
+                                        <Check className="h-3 w-3 sm:h-4 sm:w-4 mr-1" /> Coupon applied successfully!
+                                    </div>
+                                )}
+                            </div>
+                            <div className="space-y-3 border-t pt-3 sm:pt-4">
+                                <div className="flex justify-between text-gray-600 text-sm sm:text-base"><span>Subtotal ({items.length} items)</span><span>₹{subtotal.toFixed(2)}</span></div>
+                                {selectedPlan !== 'standard' && (
+                                    <div className="flex justify-between text-gray-600 text-sm sm:text-base"><span>{servicePlans[selectedPlan].name} Plan</span><span>+₹{(planAdjustedTotal - subtotal).toFixed(2)}</span></div>
+                                )}
+                                {appliedCoupon && (
+                                    <div className="flex justify-between text-green-600 font-semibold text-sm sm:text-base"><span className="flex items-center"><Tag className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />{appliedCoupon.code}</span><span>-₹{discount.toFixed(2)}</span></div>
+                                )}
+                                <div className="border-t pt-2 sm:pt-3 flex justify-between text-base sm:text-xl font-bold"><span>Total Amount</span><span className="text-purple-600">₹{finalTotal.toFixed(2)}</span></div>
+                            </div>
+                            <div className="mt-4 sm:mt-6 space-y-2 text-xs sm:text-sm text-gray-600">
+                                <div className="flex items-center"><Shield className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-green-600" />100% Secure Payment</div>
+                                <div className="flex items-center"><Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-blue-600" />On-time Delivery Guarantee</div>
+                                <div className="flex items-center"><Star className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-yellow-500" />Rated 4.9/5 by 10,000+ customers</div>
+                            </div>
+                            <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
+                                <button
+                                    onClick={handlePayment}
+                                    disabled={!assignedDriver || isLoadingDriver}
+                                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 sm:py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                                >
+                                    <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                                    Proceed to Payment
+                                </button>
+                                <button
+                                    onClick={onBack}
+                                    className="w-full border border-gray-300 text-gray-700 py-2 sm:py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors text-sm sm:text-base"
+                                >
+                                    Back to Edit
+                                </button>
+                            </div>
+                            <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-3 sm:gap-4">
+                                <div className="text-center"><Award className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 mx-auto" /><p className="text-xs text-gray-600 mt-1">Best Service</p></div>
+                                <div className="text-center"><Shield className="h-6 w-6 sm:h-8 sm:w-8 text-green-600 mx-auto" /><p className="text-xs text-gray-600 mt-1">Secure</p></div>
+                                <div className="text-center"><Truck className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 mx-auto" /><p className="text-xs text-gray-600 mt-1">Fast Delivery</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-4 sm:mt-6 lg:mt-8 bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center"><MapPin className="mr-2 h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />Distance-based Pricing Structure</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                        <div className="bg-white rounded-xl p-3 sm:p-4 text-center transform hover:scale-105 transition-transform"><div className="text-xl sm:text-2xl md:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">₹500</div><p className="text-sm sm:text-base text-gray-700 font-semibold">0-5 km</p><p className="text-xs sm:text-sm text-gray-600 mt-1">Local deliveries</p></div>
+                        <div className="bg-white rounded-xl p-3 sm:p-4 text-center transform hover:scale-105 transition-transform"><div className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">₹800</div><p className="text-sm sm:text-base text-gray-700 font-semibold">5-10 km</p><p className="text-xs sm:text-sm text-gray-600 mt-1">City-wide delivery</p></div>
+                        <div className="bg-white rounded-xl p-3 sm:p-4 text-center transform hover:scale-105 transition-transform"><div className="text-xl sm:text-2xl md:text-3xl font-bold text-green-600 mb-1 sm:mb-2">₹1000</div><p className="text-xs sm:text-sm text-gray-600 mt-1">Long distance</p></div>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4 text-center">* Additional charges apply for weight over 5kg (₹10/kg)</p>
+                </div>
+            </div>
+        </div>
     );
 };
 
