@@ -49,7 +49,7 @@ const Navbar = () => {
                         
                         {/* The only other item is the account/logout button */}
                         <div className="relative" ref={accountMenuRef}>
-                            <button 
+                            <button
                                 onClick={() => setIsAccountOpen(!isAccountOpen)}
                                 className="flex items-center space-x-2 border-2 border-purple-600 text-purple-600 px-6 py-2 rounded-lg hover:bg-purple-600 hover:text-white transition-colors"
                             >
@@ -87,7 +87,7 @@ const Navbar = () => {
                         {user && user.role !== 'admin' && <Link to="/bookings" className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">My Bookings</Link>}
                         
                         <div className="relative" ref={accountMenuRef}>
-                            <button 
+                            <button
                                 onClick={() => setIsAccountOpen(!isAccountOpen)}
                                 className="flex items-center space-x-2 border-2 border-purple-600 text-purple-600 px-6 py-2 rounded-lg hover:bg-purple-600 hover:text-white transition-colors"
                             >
@@ -99,16 +99,16 @@ const Navbar = () => {
                                     {user ? (
                                         <>
                                             {user.role === 'admin' && (
-                                                <Link 
-                                                    to="/admin-analytics" 
-                                                    className="block px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200" 
+                                                <Link
+                                                    to="/admin-analytics"
+                                                    className="block px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200"
                                                     onClick={() => setIsAccountOpen(false)}
                                                 >
                                                     Admin Dashboard
                                                 </Link>
                                             )}
-                                            <button 
-                                                onClick={handleLogout} 
+                                            <button
+                                                onClick={handleLogout}
                                                 className="w-full text-left flex items-center px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200"
                                             >
                                                 <LogOut className="h-4 w-4 mr-2" />
@@ -117,16 +117,16 @@ const Navbar = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <Link 
-                                                to="/login" 
-                                                className="block px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200" 
+                                            <Link
+                                                to="/login"
+                                                className="block px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200"
                                                 onClick={() => setIsAccountOpen(false)}
                                             >
                                                 Login
                                             </Link>
-                                            <Link 
-                                                to="/signup" 
-                                                className="block px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200" 
+                                            <Link
+                                                to="/signup"
+                                                className="block px-4 py-2 text-gray-700 hover:bg-purple-600 hover:text-white transition-colors duration-200"
                                                 onClick={() => setIsAccountOpen(false)}
                                             >
                                                 Signup
@@ -139,10 +139,10 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden"> 
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)}> 
-                            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />} 
-                        </button> 
+                    <div className="md:hidden">
+                        <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -151,40 +151,40 @@ const Navbar = () => {
             {isMenuOpen && (
                 <div className="md:hidden bg-white border-t shadow-lg">
                     <div className="px-2 pt-2 pb-3 space-y-1">
-                        <Link 
-                            to="/" 
-                            className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors" 
+                        <Link
+                            to="/"
+                            className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Home
                         </Link>
-                        <Link 
-                            to="/about" 
-                            className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors" 
+                        <Link
+                            to="/about"
+                            className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             About
                         </Link>
-                        <Link 
-                            to="/contact" 
-                            className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors" 
+                        <Link
+                            to="/contact"
+                            className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Contact
                         </Link>
                         {user && user.role !== 'admin' && (
-                            <Link 
-                                to="/bookings" 
-                                className="block w-full text-left px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors" 
+                            <Link
+                                to="/bookings"
+                                className="block w-full text-left px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 My Bookings
                             </Link>
                         )}
                         
-                        <div className="relative">
-                            <button 
-                                className="flex items-center space-x-2 w-full px-3 py-2 border-2 border-purple-600 text-purple-600 rounded-md hover:bg-purple-600 hover:text-white transition-colors mt-2" 
+                        <div className="relative" ref={accountMenuRef}>
+                            <button
+                                className="flex items-center space-x-2 w-full px-3 py-2 border-2 border-purple-600 text-purple-600 rounded-md hover:bg-purple-600 hover:text-white transition-colors mt-2"
                                 onClick={() => setIsAccountOpen(!isAccountOpen)}
                             >
                                 <User className="h-4 w-4" />
@@ -195,16 +195,16 @@ const Navbar = () => {
                                     {user ? (
                                         <>
                                             {user.role === 'admin' && (
-                                                <Link 
-                                                    to="/admin-analytics" 
-                                                    className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200" 
+                                                <Link
+                                                    to="/admin-analytics"
+                                                    className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200"
                                                     onClick={() => { setIsMenuOpen(false); setIsAccountOpen(false); }}
                                                 >
                                                     Admin Dashboard
                                                 </Link>
                                             )}
-                                            <button 
-                                                onClick={handleLogout} 
+                                            <button
+                                                onClick={handleLogout}
                                                 className="w-full flex items-center px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200"
                                             >
                                                 <LogOut className="h-4 w-4 mr-2" />
@@ -213,16 +213,16 @@ const Navbar = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <Link 
-                                                to="/login" 
-                                                className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200" 
+                                            <Link
+                                                to="/login"
+                                                className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200"
                                                 onClick={() => { setIsMenuOpen(false); setIsAccountOpen(false); }}
                                             >
                                                 Login
                                             </Link>
-                                            <Link 
-                                                to="/signup" 
-                                                className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200" 
+                                            <Link
+                                                to="/signup"
+                                                className="block px-3 py-2 text-gray-700 hover:bg-purple-600 hover:text-white rounded-md transition-colors duration-200"
                                                 onClick={() => { setIsMenuOpen(false); setIsAccountOpen(false); }}
                                             >
                                                 Signup
