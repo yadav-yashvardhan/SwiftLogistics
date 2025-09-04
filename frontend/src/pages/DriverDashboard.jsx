@@ -172,7 +172,8 @@ const DriverDashboard = () => {
                     </div>
                 </div>
 
-                <div className="mb-6 flex space-x-2 border-b border-gray-200">
+                {/* THIS IS THE CORRECTED LINE */}
+                <div className="mb-6 flex flex-wrap space-x-2 border-b border-gray-200">
                     <button onClick={() => handleTabClick('dashboard')} className={`px-4 py-2 font-semibold flex items-center ${activeTab === 'dashboard' ? 'border-b-2 border-purple-600 text-purple-600' : 'text-gray-500'}`}><BarChart3 className="h-4 w-4 mr-2"/>Dashboard</button>
                     <button onClick={() => handleTabClick('earnings')} className={`px-4 py-2 font-semibold flex items-center ${activeTab === 'earnings' ? 'border-b-2 border-purple-600 text-purple-600' : 'text-gray-500'}`}><Wallet className="h-4 w-4 mr-2"/>Earnings</button>
                     <button onClick={() => handleTabClick('history')} className={`px-4 py-2 font-semibold flex items-center ${activeTab === 'history' ? 'border-b-2 border-purple-600 text-purple-600' : 'text-gray-500'}`}><RouteIcon className="h-4 w-4 mr-2"/>Ride History</button>
