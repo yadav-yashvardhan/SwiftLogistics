@@ -84,7 +84,7 @@ const Signup = () => {
             if (data.user.role === 'driver') {
                 navigate('/driver/dashboard');
             } else {
-                navigate('/bookings');
+                navigate('/');
             }
 
         } catch (err) {
