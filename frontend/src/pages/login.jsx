@@ -46,7 +46,7 @@ const Login = () => {
       } else if (data.user.role === 'driver') {
         navigate('/driver/dashboard');
       } else {
-        navigate('/bookings');
+        navigate('/');
       }
 
     } catch (error) {
