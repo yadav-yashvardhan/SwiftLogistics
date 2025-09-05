@@ -99,17 +99,14 @@ npm run server
 # Run frontend
 npm start
 
+## 🙌 Acknowledgements  
 
-🙌 Acknowledgements
+- [Leaflet.js](https://leafletjs.com/) – Maps & location services  
+- [Razorpay](https://razorpay.com/) – Secure payments  
+- [MongoDB Atlas](https://www.mongodb.com/atlas) – Cloud database  
 
-Leaflet.js
- – Maps & location services
+---
 
-Razorpay
- – Secure payments
+✨ **SwiftLogistics** is not just a project but a step towards **modernizing logistics automation**.  
+Built with passion and attention to detail by [Yashvardhan Rao](https://github.com/yadav-yashvardhan).  
 
-MongoDB Atlas
- – Cloud database
-
-✨ SwiftLogistics is not just a project but a step towards modernizing logistics automation. Built with passion and attention to detail by Yashvardhan Rao
-.
