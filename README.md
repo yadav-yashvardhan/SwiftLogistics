@@ -99,6 +99,8 @@ npm run server
 # Run frontend
 npm start
 
+---
+
 ## 🙌 Acknowledgements  
 
 - [Leaflet.js](https://leafletjs.com/) – Maps & location services  
